@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { auth } = require('./middleware/authMiddleware');
 const functions = require('firebase-functions');
-const { app, analytics } = require('./config/firebaseconfig')
+
 
 const app = express();
 //ToDo change name of db
