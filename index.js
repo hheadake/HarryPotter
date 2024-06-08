@@ -36,7 +36,7 @@ app.use(auth)
 
 app.use(routes)
 
-exports.app = functions.https.onRequest(app);
+
 const PORT = 3000
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}...`)
