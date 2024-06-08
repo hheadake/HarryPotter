@@ -5,26 +5,25 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { auth } = require('./middleware/authMiddleware');
-
+const functions = require('firebase-functions');
+const { app, analytics } = require('./config/firebaseconfig')
 
 const app = express();
 //ToDo change name of db
-mongoose.connect('mongodb://127.0.0.1:27017/HarryPotter')
+mongoose.connect('mongodb+srv://viktoriya:gogolova5@cluster0.ukzvrpt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 .then(() => {
     console.log('DB conected')
 })
 .catch(err => console.log('DB ERROR', err.message));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  });
 
 
 
-app.engine('hbs', handlebars.engine({
-    extname: 'hbs'
+app.engine('.hbs', handlebars.engine({
+    extname: '.hbs'
+
 }));
-app.set('view engine', 'hbs');
+app.set('view engine', '.hbs');
 app.set('views', 'src/views');
 
 
@@ -37,6 +36,7 @@ app.use(auth)
 
 app.use(routes)
 
+exports.app = functions.https.onRequest(app);
 const PORT = 3000
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}...`)
